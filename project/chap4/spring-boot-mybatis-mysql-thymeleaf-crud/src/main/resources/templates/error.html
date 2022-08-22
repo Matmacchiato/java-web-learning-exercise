@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <title>错误信息提示</title>
+</head>
+<body>
+<div class="container col-8 mt-5">
+    <div class="alert alert-warning" role="alert">
+        <span th:text="${message}">自定义错误信息</span>
+        <span th:text="${error}">系统错误信息</span>
+        <a class="link-success" href="/">返回主页</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <title>学生信息</title>
+</head>
+<body>
+    <div class="container-fluid col-10 mt-5">
+        <h4 class="text-center" th:text="${caption}">学生信息表</h4>
+        <table class="table caption-top table-bordered border-primary mb-5" th:each="student:${students}">
+            <tr>
+                <td class="col-2">部门</td>
+                <td class="col-2" th:text="${student.department}">软件学院</td>
+                <td class="col-2">班级</td>
+                <td class="col-4" th:text="${student.className}">20移动互联3-1班</td>
+                <td rowspan="3" class="col-2">
+                    <img th:src="${student.photo}" src="/image/1.png" height="200px">
+                </td>
+            </tr>
+            <tr>
+                <td>姓名</td><td th:text="${student.name}">郑豪</td><td>学号</td><td th:text="${student.sid}">2001040143</td>
+            </tr>
+            <tr>
+                <td>性别</td>
+                <td th:if="${student.gender eq 0}">女</td>
+                <td th:unless="${student.gender eq 0}">男</td>
+                <td>出生日期</td><td th:text="${student.birthday}">2000-08-01</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

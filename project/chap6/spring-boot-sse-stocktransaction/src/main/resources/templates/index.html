@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .container {
+            width: 75%;
+            margin: 50px auto;
+        }
+        table {
+            width: 100%;
+        }
+        table td, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td,th {
+            padding:5px 5px;
+        }
+    </style>
+    <title>SSE消息推送实验</title>
+</head>
+<body>
+    <div class="container">
+        <table>
+            <caption>交易记录</caption>
+            <thead>
+                <th>用户</th>
+                <th>股票</th>
+                <th>交易价格</th>
+                <th>交易时间</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    function render(data){
+        let tbody=document.querySelector(".container")
+            .querySelector("table")
+            .querySelector("tbody")
+        let tr=document.createElement("tr")
+        tr.innerHTML=`
+            <td>${data.user}</td>
+            <td>${data.stock.name}</td>
+            <td>${data.stock.price}</td>
+            <td>${data.when}</td>
+        `
+        tbody.appendChild(tr)
+    }
+    var source=new EventSource("/stock/transaction")
+    source.onmessage=function(event){
+        console.log(event)
+        let data=JSON.parse(event.data)
+        render(data)
+    }
+</script>
+</html>

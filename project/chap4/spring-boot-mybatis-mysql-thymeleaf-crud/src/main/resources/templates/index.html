@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <title th:text="${title}">spring boot mvc 员工花名册</title>
+</head>
+<body>
+<div class="container col-12 mt-3 text-center">
+    <table class="table caption-top table-striped table-hover">
+        <caption class="text-center"><h4 th:text="${title}">员工花名册</h4></caption>
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>姓名</td>
+            <td>电邮</td>
+            <td>住址</td>
+            <td>工资</td>
+            <td>操作<a href="/add">添加</a></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee,stat:${employees}">
+            <td th:text="${stat.index+1}">1</td>
+            <td th:text="${employee.name}">郑豪</td>
+            <td th:text="${employee.email}">1362478331@qq.com</td>
+            <td th:text="${employee.address}">深圳</td>
+            <td th:text="${employee.salary}">200000</td>
+            <td>
+                <a th:href="'javascript:deleteById('+${employee.id}+')'">删除</a>
+                <a th:href="'/update/'+${employee.id}">修改</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script>
+    function deleteById(id){
+        if(confirm('真的要删除吗?')){
+            window.location.href='/delete/'+id
+            }
+    }
+</script>
+</html>

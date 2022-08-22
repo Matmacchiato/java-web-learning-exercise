@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>参数采集实战</title>
+    <script src="axios.min.js"></script>
+</head>
+<body>
+    <div style="width:100%; margin:10px auto">
+        <table border="solid 1px" width="100%">
+            <thead>
+            <tr>
+                <td width="20%"><input type="text" placeholder="isbn"></td>
+                <td width="100%"><input type="text" placeholder="name" width="99%"></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>获取所有请求头</td>
+                <td ondblclick="getHeaders(this)"></td>
+            </tr>
+            <tr>
+                <td>通过请求头提交</td>
+                <td ondblclick="submitToken(this)"></td>
+            </tr>
+            <tr>
+                <td>通过查询参数提交数据</td>
+                <td ondblclick="submitByQuery(this)"></td>
+            </tr>
+            <tr>
+                <td>通过路由参数提交数据</td>
+                <td ondblclick="submitByPath(this)"></td>
+            </tr>
+            <tr>
+                <td>通过表单方式提交数据</td>
+                <td ondblclick="submitByForm(this)"></td>
+            </tr>
+            <tr>
+                <td>通过JSON方式提交数据</td>
+                <td ondblclick="submitByJson(this)"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    axios.defaults.baseURL='http://localhost:8080/'
+    function getHeaders(obj){
+    axios.get('/headers').then(r=>{
+        obj.innerHTML=JSON.stringify(r.data)
+    })
+}
+// 请求头方式提交令牌
+function submitToken(obj){
+    axios.get('/header', {headers:{'token':'9999'}}).then(r=>{
+        obj.innerHTML=JSON.stringify(r.data)
+    })
+}
+// 查询参数方式提交数据
+function submitByQuery(obj){
+    isbn=document.querySelectorAll("input")[0].value
+    name=document.querySelectorAll("input")[1].value
+
+    axios.get('/books', {params:{isbn, name}}).then(r=>{
+        obj.innerHTML=JSON.stringify(r.data)
+    })
+}
+// 路由参数方式提交数据
+function submitByPath(obj){
+    isbn=document.querySelectorAll("input")[0].value
+    name=document.querySelectorAll("input")[1].value
+
+    axios.post(`/books/isbn/${isbn}/name/${name}}`).then(r=>{
+        obj.innerHTML=JSON.stringify(r.data)
+    })
+}
+// 表单方式提交数据
+function submitByForm(obj){
+    isbn=document.querySelectorAll("input")[0].value
+    name=document.querySelectorAll("input")[1].value
+
+    axios.post('/books/form', `isbn=${isbn}&name=${name}}`).then(r=>{
+        obj.innerHTML=JSON.stringify(r.data)
+    })
+}
+// Json方式提交数据
+function submitByJson(obj){
+    isbn=document.querySelectorAll("input")[0].value
+    name=document.querySelectorAll("input")[1].value
+
+    axios.put('/books/json', {isbn, name}).then(r=>{
+        obj.innerHTML=JSON.stringify(r.data)
+    })
+}
+</script>
+</html>

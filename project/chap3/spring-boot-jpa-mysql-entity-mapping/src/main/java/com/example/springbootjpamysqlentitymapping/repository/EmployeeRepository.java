@@ -1,0 +1,7 @@
+package com.example.springbootjpamysqlentitymapping.repository;
+
+import com.example.springbootjpamysqlentitymapping.model.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EmployeeRepository extends JpaRepository<Employee,Long> {
+}

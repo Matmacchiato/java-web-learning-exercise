@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid col-8 mt-5 text-center">
+        <h4 class="text-center" th:text="${employee}==null?'添加员工信息':'修改员工信息'">添加员工信息</h4>
+        <form method="post" th:action="${employee}==null?'/create':'/update/'+${id}">
+            <div class="input-group mb-3">
+                <span class="input-group-text">姓名</span>
+                <input type="text" class="form-control" name="name" th:value="${employee}==null?'':${employee.name}">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">电邮</span>
+                <input type="text" class="form-control" name="email" th:value="${employee}==null?'':${employee.email}">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">住址</span>
+                <input type="text" class="form-control" name="address" th:value="${employee}==null?'':${employee.address}">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">工资</span>
+                <input type="text" class="form-control" name="salary" th:value="${employee}==null?'':${employee.salary}">
+            </div>
+            <div class="input-group mb-3">
+                <input type="submit" class="form-control btn btn-success" value="提交">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
